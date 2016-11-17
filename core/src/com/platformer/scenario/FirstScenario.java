@@ -29,6 +29,10 @@ public class FirstScenario {
         return this.level.floorThatCollisionsWith(character);
     }
 
+    public void addFloatingGround(float x, float y) {
+        this.level.addLevelComponent(new FloatingGround(new Vector2(x, y)));
+    }
+
     private void initialize() {
         this.level.addLevelComponent(new Ground(new Vector2(0, 0), 1856));
 
