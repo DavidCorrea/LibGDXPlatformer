@@ -35,8 +35,15 @@ public class FirstScenario {
         this.level.addLevelComponent(new FloatingGround(new Vector2(20, 50)));
         this.level.addLevelComponent(new FloatingGround(new Vector2(500, 50)));
         this.level.addLevelComponent(new FloatingGround(new Vector2(1250, 50)));
+
         this.level.addLevelComponent(new FloatingGround(new Vector2(200, 100)));
-        this.level.addLevelComponent(new FloatingGround(new Vector2(750, 100)));
         this.level.addLevelComponent(new FloatingGround(new Vector2(1000, 100)));
+
+        this.level.addLevelComponent(new FloatingGround(new Vector2(750, 150)));
+        this.level.addLevelComponent(new FloatingGround(new Vector2(1000, 200)));
+
+        this.level.addLevelComponent(new FloatingGround(new Vector2(600, 250)));
+
+        this.level.addLevelComponent(new FloatingGround(new Vector2(1000, 300)));
     }
 }
