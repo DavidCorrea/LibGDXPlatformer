@@ -10,19 +10,25 @@ import com.platformer.scenario.FirstScenario;
 import com.platformer.scenario.FirstScenarioBackground;
 import com.platformer.spritesManager.BackgroundSpritesManager;
 import com.platformer.model.character.Character;
+import com.platformer.spritesManager.HUDManager;
 import com.platformer.utils.ScrollingBackground;
 
 public class Platformer extends ApplicationAdapter {
 	private SpriteBatch screenBatch;
+	private SpriteBatch hudScreenBatch;
+
 	private Camera camera;
 	private Character character;
 
 	private FirstScenario scenario;
 	private FirstScenarioBackground scenarioBackground;
+
+	private HUDManager hudManager;
 	
 	@Override
 	public void create () {
 		this.screenBatch = new SpriteBatch();
+		this.hudScreenBatch = new SpriteBatch();
 
 		this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.camera.update();
@@ -30,6 +36,8 @@ public class Platformer extends ApplicationAdapter {
 		this.scenario = new FirstScenario();
 		this.character = new Character(this.scenario);
 		this.scenarioBackground = new FirstScenarioBackground(this.camera);
+
+		this.hudManager = new HUDManager();
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 	}
@@ -61,6 +69,10 @@ public class Platformer extends ApplicationAdapter {
 		this.character.drawWith(screenBatch);
 
 		this.screenBatch.end();
+
+		this.hudScreenBatch.begin();
+		this.hudScreenBatch.draw(this.hudManager.getHealthBar(), 5, 550, 300, 150);
+		this.hudScreenBatch.end();
 	}
 
 	private void updateCamera() {
