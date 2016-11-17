@@ -1,8 +1,15 @@
 package com.platformer.model.character.state;
 
 import com.platformer.model.character.Character;
+import com.platformer.spritesManager.CharacterSpriteManager;
 
 public class StandingState extends CharacterState {
+
+    private CharacterSpriteManager characterSpriteManager;
+
+    public StandingState() {
+        this.characterSpriteManager = new CharacterSpriteManager();
+    }
 
     @Override
     public void grounded(Character character) {
@@ -11,8 +18,7 @@ public class StandingState extends CharacterState {
 
     @Override
     public void jump(Character character) {
-        character.increaseVerticalSpeedBy(600);
-        character.setState(new JumpingState(character.getY()));
+        character.jump();
     }
 
     @Override
@@ -22,8 +28,7 @@ public class StandingState extends CharacterState {
 
     @Override
     public void falling(Character character) {
-        character.increaseVerticalSpeedBy(-600);
-        character.setState(new FallingState());
+        character.fall();
     }
 
     @Override

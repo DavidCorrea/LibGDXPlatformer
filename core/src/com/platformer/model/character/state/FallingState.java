@@ -6,7 +6,7 @@ public class FallingState extends CharacterState {
 
     @Override
     public void grounded(Character character) {
-        character.setState(new StandingState());
+        character.stand();
     }
 
     @Override

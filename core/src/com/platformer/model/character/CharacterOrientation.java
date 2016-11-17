@@ -22,10 +22,7 @@ public class CharacterOrientation {
         this.facingLeft = false;
     }
 
-    public TextureRegion frameWithOrientation(TextureRegion keyFrame) {
-        if(this.facingLeft) {
-            keyFrame.flip(true, false);
-        }
-        return keyFrame;
+    public boolean isFacingLeft() {
+        return facingLeft;
     }
 }

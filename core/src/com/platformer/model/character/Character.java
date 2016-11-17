@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.platformer.model.character.state.CharacterState;
 import com.platformer.model.character.state.FallingState;
+import com.platformer.model.character.state.JumpingState;
 import com.platformer.model.character.state.StandingState;
 import com.platformer.model.level.LevelComponent;
 import com.platformer.scenario.FirstScenario;
@@ -38,9 +39,8 @@ public class Character {
         this.orientation = new CharacterOrientation();
         this.elapsedTime = 0;
 
-        this.state = new FallingState();
-        this.currentAnimation = this.animations.getJumpingAnimation();
         this.orientation.faceRight();
+        this.fall();
         this.updateCurrentFrame();
 
         this.scenario = scenario;
@@ -51,10 +51,14 @@ public class Character {
         this.checkCollisionsWithFloors();
         this.checkKeys();
         this.state.update(this);
+        this.updateCurrentFrame();
     }
 
     public void drawWith(SpriteBatch batch) {
-        batch.draw(this.currentFrame, this.position.x, this.position.y, this.currentFrame.getRegionWidth(), this.currentFrame.getRegionHeight());
+        float x = this.orientation.isFacingLeft() ? this.position.x + this.currentFrame.getRegionWidth() : this.position.x;
+        float width = this.orientation.isFacingLeft() ? -this.currentFrame.getRegionWidth() : this.currentFrame.getRegionWidth();
+
+        batch.draw(this.currentFrame, x, this.position.y, width, this.currentFrame.getRegionHeight());
     }
 
     public void setState(CharacterState state) {
@@ -111,11 +115,13 @@ public class Character {
         this.setHorizontalSpeedTo(0);
 
         if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            this.run();
             this.setHorizontalSpeedTo(-500);
             this.orientation.faceLeft();
         }
 
         if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            this.run();
             this.setHorizontalSpeedTo(500);
             this.orientation.faceRight();
         }
@@ -133,7 +139,7 @@ public class Character {
 
     private void updateCurrentFrame() {
         this.elapsedTime += Gdx.graphics.getDeltaTime();
-        this.currentFrame = this.orientation.frameWithOrientation(this.currentAnimation.getKeyFrame(elapsedTime));
+        this.currentFrame = this.currentAnimation.getKeyFrame(elapsedTime);
     }
 
     private void standOn(LevelComponent levelComponent) {
@@ -147,4 +153,28 @@ public class Character {
         this.speed.set(newHorizontalSpeed, this.speed.y);
     }
 
+    public void setAnimation(Animation animation) {
+        this.currentAnimation = animation;
+    }
+
+    public void run() {
+        this.setAnimation(this.animations.getRunningAnimation());
+    }
+
+    public void fall() {
+        this.increaseVerticalSpeedBy(-600);
+        this.setAnimation(this.animations.getJumpingAnimation());
+        this.setState(new FallingState());
+    }
+
+    public void stand() {
+        this.setAnimation(this.animations.getStandingAnimation());
+        this.setState(new StandingState());
+    }
+
+    public void jump() {
+        this.increaseVerticalSpeedBy(600);
+        this.setAnimation(this.animations.getJumpingAnimation());
+        this.setState(new JumpingState(this.getY()));
+    }
 }
