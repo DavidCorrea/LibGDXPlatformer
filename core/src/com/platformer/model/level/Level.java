@@ -7,18 +7,18 @@ import java.util.List;
 
 public class Level {
 
-    private List<Block> blocks;
+    private List<LevelComponent> levelComponents;
 
     public Level() {
-        this.blocks = new ArrayList<>();
+        this.levelComponents = new ArrayList<>();
     }
 
-    public void addBlock(Block block) {
-        this.blocks.add(block);
+    public void addLevelComponent(LevelComponent levelComponent) {
+        this.levelComponents.add(levelComponent);
     }
 
     public void render(final SpriteBatch spriteBatch) {
-        this.blocks.forEach(block -> block.render(spriteBatch));
+        this.levelComponents.forEach(levelComponent -> levelComponent.render(spriteBatch));
     }
 
 }
