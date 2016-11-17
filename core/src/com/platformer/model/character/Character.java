@@ -2,6 +2,7 @@ package com.platformer.model.character;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -30,6 +31,7 @@ public class Character {
     private Animation currentAnimation;
 
     private boolean justJumped;
+    private Sound jumpSound;
 
     public Character(FirstScenario scenario) {
         this.position = new Vector2(700, 0);
@@ -45,6 +47,7 @@ public class Character {
 
         this.scenario = scenario;
         this.justJumped = false;
+        this.jumpSound = Gdx.audio.newSound(Gdx.files.internal("Jump sound.wav"));
     }
 
     public void update() {
@@ -126,9 +129,10 @@ public class Character {
             this.orientation.faceRight();
         }
 
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             this.state.jump(this);
             this.justJumped = true;
+            this.jumpSound.play(0.2f);
         }
 
         if(!Gdx.input.isKeyJustPressed(Input.Keys.SPACE) && this.justJumped) {

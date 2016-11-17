@@ -2,6 +2,7 @@ package com.platformer;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -24,6 +25,8 @@ public class Platformer extends ApplicationAdapter {
 	private FirstScenarioBackground scenarioBackground;
 
 	private HUDManager hudManager;
+
+	private Music music;
 	
 	@Override
 	public void create () {
@@ -38,6 +41,9 @@ public class Platformer extends ApplicationAdapter {
 		this.scenarioBackground = new FirstScenarioBackground(this.camera);
 
 		this.hudManager = new HUDManager();
+
+		this.music = Gdx.audio.newMusic(Gdx.files.internal("Platformer song.mp3"));
+		this.music.play();
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 	}
@@ -54,6 +60,7 @@ public class Platformer extends ApplicationAdapter {
 	@Override
 	public void dispose () {
 		this.screenBatch.dispose();
+		this.music.dispose();
 	}
 
 	private void update() {
