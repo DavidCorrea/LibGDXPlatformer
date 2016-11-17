@@ -11,4 +11,6 @@ public abstract class CharacterState {
     public abstract void stopJump(Character character);
 
     public abstract void falling(Character character);
+
+    public abstract void update(Character character);
 }

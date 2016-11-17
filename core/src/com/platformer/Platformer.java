@@ -27,8 +27,8 @@ public class Platformer extends ApplicationAdapter {
 		this.camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		this.camera.update();
 
-		this.character = new Character();
 		this.scenario = new FirstScenario();
+		this.character = new Character(this.scenario);
 		this.scenarioBackground = new FirstScenarioBackground(this.camera);
 
 		Gdx.gl.glClearColor(0, 0, 0, 1);

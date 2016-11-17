@@ -2,9 +2,11 @@ package com.platformer.scenario;
 
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
+import com.platformer.model.character.Character;
 import com.platformer.model.level.FloatingGround;
 import com.platformer.model.level.Ground;
 import com.platformer.model.level.Level;
+import com.platformer.model.level.LevelComponent;
 
 public class FirstScenario {
 
@@ -17,6 +19,14 @@ public class FirstScenario {
 
     public void drawWith(SpriteBatch spriteBatch) {
         this.level.render(spriteBatch);
+    }
+
+    public boolean existsACollisionWith(Character character) {
+        return this.level.existsACollisionWith(character);
+    }
+
+    public LevelComponent floorThatCollisionsWith(Character character) {
+        return this.level.floorThatCollisionsWith(character);
     }
 
     private void initialize() {

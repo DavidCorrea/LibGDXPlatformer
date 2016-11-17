@@ -11,8 +11,8 @@ public class StandingState extends CharacterState {
 
     @Override
     public void jump(Character character) {
-        character.jump();
-        character.setState(new JumpingState(character.currentHeight()));
+        character.increaseVerticalSpeedBy(600);
+        character.setState(new JumpingState(character.getY()));
     }
 
     @Override
@@ -22,7 +22,14 @@ public class StandingState extends CharacterState {
 
     @Override
     public void falling(Character character) {
-        character.setState(new FallingState(character.currentHeight()));
+        character.increaseVerticalSpeedBy(-600);
+        character.setState(new FallingState());
+    }
+
+    @Override
+    public void update(Character character) {
+        character.applySpeed();
+        character.applyAcceleration();
     }
 
 }

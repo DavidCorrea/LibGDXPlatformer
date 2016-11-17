@@ -4,12 +4,6 @@ import com.platformer.model.character.Character;
 
 public class FallingState extends CharacterState {
 
-    private float startingHeight;
-
-    public FallingState(float startingHeight) {
-        this.startingHeight = startingHeight;
-    }
-
     @Override
     public void grounded(Character character) {
         character.setState(new StandingState());
@@ -22,15 +16,18 @@ public class FallingState extends CharacterState {
 
     @Override
     public void stopJump(Character character) {
-        if(character.currentHeight() <= this.startingHeight) {
-            character.setState(new StandingState());
-            character.stand();
-        }
+
     }
 
     @Override
     public void falling(Character character) {
 
+    }
+
+    @Override
+    public void update(Character character) {
+        character.applySpeed();
+        character.applyAcceleration();
     }
 
 }

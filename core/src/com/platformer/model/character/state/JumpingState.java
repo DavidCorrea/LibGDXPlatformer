@@ -14,7 +14,7 @@ public class JumpingState extends CharacterState {
 
     @Override
     public void grounded(Character character) {
-
+        character.setState(new StandingState());
     }
 
     @Override
@@ -24,16 +24,25 @@ public class JumpingState extends CharacterState {
 
     @Override
     public void stopJump(Character character) {
-        if(character.currentHeight() >= maximumHeight && character.currentHeight() > startingHeight) {
-            character.setState(new FallingState(this.startingHeight));
-            character.fall();
+        if(character.getY() - startingHeight > maximumHeight) {
+            character.increaseVerticalSpeedBy(-600);
+            character.setState(new FallingState());
         }
-
     }
 
     @Override
     public void falling(Character character) {
 
+    }
+
+    @Override
+    public void update(Character character) {
+        character.applySpeed();
+        character.applyAcceleration();
+
+        if(character.getY() - startingHeight > maximumHeight) {
+            stopJump(character);
+        }
     }
 
 }
