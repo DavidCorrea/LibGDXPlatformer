@@ -20,7 +20,7 @@ public class ScrollingBackground {
     }
 
     public Float offsetX() {
-        return this.camera.position.x / (this.depth / 5);
+        return this.camera.position.x / (this.depth / 7);
     }
 
     public float offsetY() {
