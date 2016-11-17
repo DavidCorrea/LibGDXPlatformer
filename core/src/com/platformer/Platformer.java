@@ -77,10 +77,13 @@ public class Platformer extends ApplicationAdapter {
 
 	private void updateCamera() {
 		/* This values could be defined in the current Level */
+
 		if(this.character.getX() >= 700 && this.character.getX() <= 1200) {
 			this.camera.position.x = this.character.getX();
 		}
-		this.camera.position.y = this.character.getY() + 200;
+		if(this.character.getY() >= 0 && this.character.getY() <= 400) {
+			this.camera.position.y = this.character.getY() + 200;
+		}
 
 		this.camera.update();
 	}
